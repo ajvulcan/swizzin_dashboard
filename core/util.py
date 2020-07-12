@@ -35,7 +35,8 @@ def get_default_interface():
     with open("/proc/net/route") as route:
         for line in route:
             fields = line.strip().split()
-            if fields[1] != '00000000' or not int(fields[3], 16) & 2:
+            #if fields[1] != '00000000' or not int(fields[3], 16) & 2:
+            if fields[1] != '00000000':
                 continue
             return fields[0]
 
@@ -45,7 +46,7 @@ def get_mounts():
         for line in mount:
             fields = line.strip().split()
             if fields[0].startswith("/dev"):
-                if ("boot" in fields[1]) or ("fuse" in fields):
+                if ("boot" in fields[1]) or ("fuse" in fields) or ("/snap/" in fields[1]) or ("/loop" in fields[0]):
                     continue
                 else:
                     mounts.append(fields[1])
@@ -199,15 +200,21 @@ def vnstat_data(interface, mode):
     #data = vnstat.stdout.decode('utf-8')
     return data
 
-def vnstat_parse(interface, mode, query, position=False):
+def vnstat_parse(interface, mode, query, read_unit, position=False):
     if position is not False:
-        result = vnstat_data(interface, mode)['interfaces'][0]['traffic'][query][position]
-        result['rx'] = GetHumanReadableKB(result['rx'])
-        result['tx'] = GetHumanReadableKB(result['tx'])
+        #result = vnstat_data(interface, mode)['interfaces'][0]['traffic'][query][position]
+        result = vnstat_data(interface, mode)['interfaces'][0]['traffic'][query]
+        for p in result:
+            if p["id"] == int(position):
+                data = {}
+                data['rx'] = read_unit(p['rx'])
+                data['tx'] = read_unit(p['tx'])
+                result = data
+                break
     else:
         result = vnstat_data(interface, mode)['interfaces'][0]['traffic'][query]
-        result['rx'] = GetHumanReadableKB(result['rx'])
-        result['tx'] = GetHumanReadableKB(result['tx'])
+        result['rx'] = read_unit(result['rx'])
+        result['tx'] = read_unit(result['tx'])
     return result
 
 def disk_usage(location):

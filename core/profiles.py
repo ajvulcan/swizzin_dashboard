@@ -25,7 +25,7 @@ class couchpotato_meta:
     name= "couchpotato"
     pretty_name = "CouchPotato"
     baseurl = "/couchpotato"
-    systemd = "couchpotato@"
+    systemd = "couchpotato"
 
 class deluge_meta:
     name = "deluge"
@@ -99,7 +99,7 @@ class medusa_meta:
     name = "medusa"
     pretty_name = "Medusa"
     baseurl = "/medusa"
-    systemd = "medusa@"
+    systemd = "medusa"
 
 class netdata_meta:
     name = "netdata"
@@ -123,13 +123,20 @@ class nzbhydra_meta:
     name = "nzbhydra"
     pretty_name = "nzbhydra"
     baseurl = "/nzbhydra"
-    systemd = "nzbhydra@"
+    systemd = "nzbhydra"
 
 class ombi_meta:
     name = "ombi"
     pretty_name = "Ombi"
     baseurl = "/ombi"
     runas = "ombi"
+    
+class organizr_meta:
+    name = "organizr"
+    pretty_name = "Organizr"
+    baseurl = "/organizr"
+    systemd = False
+    multiuser = True
 
 class plex_meta:
     name = "plex"
@@ -143,7 +150,7 @@ class pyload_meta:
     name = "pyload"
     pretty_name = "pyLoad"
     baseurl = "/pyload"
-    systemd = "pyload@"
+    systemd = "pyload"
 
 class quassel_meta:
     name = "quassel"
@@ -178,7 +185,7 @@ class sabnzbd_meta:
     name = "sabnzbd"
     pretty_name = "SABnzbd"
     baseurl = "/sabnzbd"
-    systemd = "sabnzbd@"
+    systemd = "sabnzbd"
 
 class shellinabox_meta:
     name = "shellinabox"
@@ -190,13 +197,13 @@ class sickchill_meta:
     name = "sickchill"
     pretty_name = "SickChill"
     baseurl = "/sickchill"
-    systemd = "sickchill@"
+    systemd = "sickchill"
 
 class sickgear_meta:
     name = "sickgear"
     pretty_name = "SickGear"
     baseurl = "/sickgear"
-    systemd = "sickgear@"
+    systemd = "sickgear"
 
 class sonarr_meta:
     name = "sonarr"
@@ -221,6 +228,19 @@ class tautulli_meta:
     pretty_name = "Tautulli"
     baseurl = "/tautulli"
     runas = "tautulli"
+
+class transmission_meta:
+    name = "transmission"
+    pretty_name = "Transmission"
+    systemd = "transmission@"
+    baseurl = "/transmission/web/"
+    multiuser = True
+
+class webmin_meta:
+    name = "webmin"
+    pretty_name = "Webmin"
+    runas = "root"
+    baseurl = "/webmin/"
 
 class wireguard_meta:
     name = "wireguard"
